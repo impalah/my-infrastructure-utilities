@@ -1,0 +1,13 @@
+services:
+  mongodb:
+    # image: mongo:latest
+    image: mongo:3.4
+    container_name: mongodb_container
+    # command: mongod --replSet rs0
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=MyPassword_2024
+    volumes:
+      - ./database:/data/db
+    ports:
+      - 27017:27017
