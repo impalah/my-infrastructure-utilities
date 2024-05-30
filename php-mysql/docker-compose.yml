@@ -1,0 +1,51 @@
+services:
+  database:
+    image: mysql:8
+    restart: always
+    volumes:
+      - ./database:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: IamGr00t
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: IamB4byGr00t
+    # Optional: Uncomment if you want to expose the database port
+    # ports:
+    #   - 3306:3306
+    networks:
+      - phpNetwork
+  # Optional: phpmyadmin. Comment if not needed
+  phpmyadmin:
+    depends_on:
+      - database
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8083:80
+    environment:
+      PMA_HOST: database
+      MYSQL_ROOT_PASSWORD: IamGr00t
+    networks:
+      - phpNetwork
+  php:
+    depends_on:
+      - database
+    image: php:8.0-fpm
+    restart: always
+    volumes:
+      - ./www:/var/www/html
+    networks:
+      - phpNetwork
+  webserver:
+    image: nginx:alpine
+    volumes:
+      - ./www:/var/www/html
+      - ./nginx-conf:/etc/nginx/conf.d
+    ports:
+      - 80:80
+    networks:
+      - phpNetwork
+networks:
+  phpNetwork:
+volumes:
+  database:
