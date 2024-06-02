@@ -1,0 +1,12 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: postgres_container
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=MyP4$$w0rd
+      - POSTGRES_DB=demo
+    volumes:
+      - ./database/standalone:/var/lib/postgresql/data

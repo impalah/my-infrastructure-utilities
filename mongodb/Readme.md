@@ -40,7 +40,7 @@ Show users to check if new user exists
 show users
 ```
 
-## Reauthenticate with the newley crated user
+## Reauthenticate with the newly crated user
 
 ```bash
 mongo -u myadmin -p 1234567890 --authenticationDatabase admin
