@@ -1,0 +1,19 @@
+services:
+  database:
+    image: mysql:8
+    restart: always
+    volumes:
+      - ./database:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: IamGr00t
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: IamB4byGr00t
+    ports:
+      - 3306:3306
+    networks:
+      - myNetwork
+networks:
+  myNetwork:
+volumes:
+  database:
