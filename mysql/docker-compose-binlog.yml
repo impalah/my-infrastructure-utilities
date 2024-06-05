@@ -1,0 +1,21 @@
+services:
+  database:
+    build:
+      context: .
+      dockerfile: Dockerfile.binlog
+    volumes:
+      - ./database:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: IamGr00t
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: IamB4byGr00t
+      MYSQL_LOG_BIN: 1
+    ports:
+      - 3306:3306
+    networks:
+      - myNetwork
+networks:
+  myNetwork:
+volumes:
+  database:
