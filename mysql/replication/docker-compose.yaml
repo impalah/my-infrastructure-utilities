@@ -1,0 +1,43 @@
+services:
+  db_master:
+    # image: mysql:5.5
+    build:
+      context: .
+      dockerfile: Dockerfile.master.binlog
+    # command: --default-authentication-plugin=mysql_native_password
+    container_name: master_container
+    restart: always
+    ports:
+      - 3316:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: IamGr00t
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: IamB4byGr00t
+    volumes:
+      - ./database/master:/var/lib/mysql
+    networks:
+      - myNetwork
+
+  db_replica:
+    # image: mysql:5.5
+    # command: --default-authentication-plugin=mysql_native_password
+    build:
+      context: .
+      dockerfile: Dockerfile.replica.binlog
+    container_name: replica_container
+    ports:
+      - 3317:3306
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: IamGr00t
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: IamB4byGr00t
+    volumes:
+      - ./database/replica:/var/lib/mysql
+    networks:
+      - myNetwork
+
+networks:
+  myNetwork:

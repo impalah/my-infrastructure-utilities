@@ -1,0 +1,7 @@
+[mysqld]
+server-id=2
+relay-log-index=slave-relay-bin.index
+relay-log=slave-relay-bin
+log-bin=mysql-replica-bin
+binlog_format=ROW
+log_slave_updates=1
